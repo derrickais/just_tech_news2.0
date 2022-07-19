@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const sequelize = require('sequelize');
-const { Post, User, Comment } = require('../models')
+const { Post, User, Comment } = require('../models');
+const withAuth = require('../utils/auth');
 
 router.get('/', (req, res) => {
     console.log(req.session);
@@ -43,7 +44,7 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/login', (req, res) => {
+router.get('/login', withAuth, (req, res) => {
     if(req.session.loggedIn) {
         res.redirect('/');
         return;
